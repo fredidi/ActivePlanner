@@ -13,9 +13,9 @@ namespace API.Controllers
     {
         //ENDPOINT
         [HttpGet] //Get multiple activities
-        public async Task<ActionResult<List<Activity>>> GetActivities(CancellationToken ct)
+        public async Task<ActionResult<List<Activity>>> GetActivities()
         {
-            return await Mediator.Send(new List.Query(), ct);
+            return await Mediator.Send(new List.Query());
         }
 
         //ENDPOINT
