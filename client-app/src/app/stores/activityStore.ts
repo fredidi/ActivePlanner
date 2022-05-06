@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Activity } from "../models/activity";
-import { v4 as uuid } from 'uuid';
 
 export default class ActivityStore {
     activities: Activity[] = [];
@@ -19,6 +18,16 @@ export default class ActivityStore {
         return Array.from(this.activityRegistry.values()).sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
     }
 
+    get groupActivities() {
+        return Object.entries(
+            this.activitiesByDate.reduce((activities, activity) => {
+                const date = activity.date;
+                activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+                return activities;
+            }, {} as {[key: string]: Activity[]})
+        )
+    }
+
     private setActivity = (activity: Activity) => {
         activity.date = activity.date.split('T')[0];  //"2022-07-29T14:29:11.8254242"
                 this.activityRegistry.set(activity.id, activity); // set(key, value) - set = add or edit
@@ -28,7 +37,7 @@ export default class ActivityStore {
         this.loadingInitial = state;
     }
 
-    loadAcvitities = async () => {
+    loadActivities = async () => {
         this.loadingInitial = true;
         try {
             const activities = await agent.Activities.list();
@@ -50,14 +59,18 @@ export default class ActivityStore {
         let activity = this.getActivity(id)
         if (activity) {
             this.selectedActivity = activity;
+            return activity;
         }
         else {
             this.loadingInitial = true;
             try {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
-                this.selectedActivity = activity;
+                runInAction(() => {
+                    this.selectedActivity = activity;
+                })
                 this.setLoadingInitial(false);
+                return activity;
             }
             catch (error) {
                 console.log(error)
@@ -68,7 +81,6 @@ export default class ActivityStore {
 
     createActivity = async (activity: Activity) => {
         this.loading = true;
-        activity.id = uuid();
         try {
             await agent.Activities.create(activity);
             runInAction(() => {
