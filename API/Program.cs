@@ -1,5 +1,7 @@
 using API;
+using Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +28,9 @@ namespace Reactivity
             try
             {
                 var context = services.GetRequiredService<DataContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedData(context);
+                await Seed.SeedData(context, userManager);
             }
 
             catch (Exception ex) 
