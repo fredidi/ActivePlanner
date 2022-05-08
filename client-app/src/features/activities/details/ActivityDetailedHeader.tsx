@@ -10,7 +10,7 @@ const activityImageStyle = {
 
 const activityImageTextStyle = {
     position: 'absolute',
-    bottom: '5%',
+    bottom: '5%', 
     left: '5%',
     width: '100%',
     height: 'auto',
