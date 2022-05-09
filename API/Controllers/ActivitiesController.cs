@@ -12,7 +12,7 @@ namespace API.Controllers
 {
     public class ActivitiesController : BaseApiController
     {
-        //ENDPOINT
+        [AllowAnonymous]
         [HttpGet] //Get multiple activities
         public async Task<IActionResult> GetActivities()
         {
