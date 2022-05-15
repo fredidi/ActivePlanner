@@ -1,5 +1,3 @@
-import { referenceEnhancer } from "mobx/dist/internal";
-
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Photo, Profile } from "../models/profile";
