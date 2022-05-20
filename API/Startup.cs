@@ -49,12 +49,17 @@ namespace API
             {
                 // app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reactivity v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Activity Planner v1"));
             }
 
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //Will look for the wwwroot-folder that is called index.html
+            app.UseDefaultFiles();
+            //Will look for the static files
+            app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
 
@@ -65,6 +70,7 @@ namespace API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

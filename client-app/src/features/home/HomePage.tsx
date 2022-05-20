@@ -14,11 +14,11 @@ export default observer(function Homepage() {
             <Container text>
                 <Header as='h1' inverted>
                     <Image size='massive' src='/assets/logo.png' alt='logo' style={{ marginBottom: 12 }} />
-                    ReActivities Web
+                    Activity Planner
                 </Header>
                 {userStore.isLoggedIn ? (   //TRUE
                     <>
-                        <Header as='h2' inverted content='Welcome to ReActivities' />
+                        <Header as='h2' inverted content='Welcome to Activity Planner!' />
                         <Button as={Link} to='/activities' size='huge' inverted>
                             Go to Activities!
                         </Button>

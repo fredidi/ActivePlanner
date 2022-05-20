@@ -1,6 +1,4 @@
-import { timeStamp } from "console";
 import { makeAutoObservable, reaction, runInAction } from "mobx";
-import { threadId } from "worker_threads";
 import agent from "../api/agent";
 import { Photo, Profile, UserActivity } from "../models/profile";
 import { store } from "./store";

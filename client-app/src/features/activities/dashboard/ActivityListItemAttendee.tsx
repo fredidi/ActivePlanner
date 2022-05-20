@@ -11,7 +11,7 @@ interface Props {
 
 export default observer(function ActivityListItemAttendee({ attendees }: Props) {
     const styles = {
-        borderColor: 'orange',
+        borderColor: 'teal',
         borderWidth: 2
     }
     return (
