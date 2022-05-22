@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { Divider, Grid, Header, Item, Segment, Statistic } from 'semantic-ui-react';
+import { SyntheticEvent, useState } from 'react';
+import { Button, Divider, Grid, Header, Item, Segment, Statistic } from 'semantic-ui-react';
 import { Profile } from '../../app/models/profile';
+import { useStore } from '../../app/stores/store';
 import FollowButton from './FollowButton';
 
 interface Props {
@@ -8,6 +10,16 @@ interface Props {
 }
 
 export default observer(function ProfileHeader({profile}: Props) {
+
+    const { profileStore } = useStore();
+    const { deleteProfile, isCurrentUser } = profileStore;
+    const [target, setTarget] = useState('');
+
+    function handleProfileDelete(event: SyntheticEvent<HTMLButtonElement>, username: string) {
+        setTarget(event.currentTarget.value);
+        deleteProfile(username);
+        console.log('hej')
+    }
     return (
         <Segment>
             <Grid>
@@ -28,6 +40,14 @@ export default observer(function ProfileHeader({profile}: Props) {
                     </Statistic.Group>
                     <Divider />
                     <FollowButton profile={profile} />
+                    
+                    {/* {isCurrentUser && (
+                    <Button 
+                    onClick={(e) => handleProfileDelete(e, profile.username)}
+                    content='Delete Account'
+                    color='red'
+                    floated='right'
+                    />)} */}
                 </Grid.Column>
             </Grid>
         </Segment>

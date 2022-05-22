@@ -112,6 +112,22 @@ export default class ProfileStore {
         }
     }
 
+    deleteProfile = async (username: string) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.deleteProfile(username);
+            runInAction(() => {
+                if (this.profile) {
+                    
+                }
+            })
+            
+        } catch (error) {
+            console.log(error);
+            runInAction(() => this.loading = false);
+        }
+    }
+
     updateProfile = async (profile: Partial<Profile>) => {
         this.loading = true;
         try {

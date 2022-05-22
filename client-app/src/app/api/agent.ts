@@ -14,6 +14,7 @@ const sleep = (delay: number) => {
 }
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+// axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
@@ -105,7 +106,8 @@ const Profiles = {
     updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile),
     updateFollowing: (username: string) => requests.post(`follow/${username}`, {}),
     listFollowinigs: (username: string, predicate: string) => requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
-    listActivities: (username: string, predicate: string) => requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`)
+    listActivities: (username: string, predicate: string) => requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`),
+    deleteProfile: (username: string) => requests.del<Profile>(`/profiles/${username}`)
 }
 
 const agent = {
