@@ -11,7 +11,6 @@ export default observer(function ActivityList() {
 
 
     return (
-
         <>
             {groupActivities.map(([group, activities]) => {
                 return (             

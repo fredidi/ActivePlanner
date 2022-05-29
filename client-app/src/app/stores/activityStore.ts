@@ -7,7 +7,7 @@ import { Profile } from "../models/profile";
 import { store } from "./store";
 
 export default class ActivityStore {
-    activities: Activity[] = [];
+    // activities: Activity[] = [];
     activityRegistry = new Map<string, Activity>();
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
@@ -20,6 +20,7 @@ export default class ActivityStore {
     constructor() {
         makeAutoObservable(this)
 
+        //REACTION takes 2 parameters. 1. function or expression to identify what state to observe. 2. Do something with the state that's changing
         reaction(
             () => this.predicate.keys(),
             () => {
@@ -30,6 +31,7 @@ export default class ActivityStore {
         )
     }
 
+    //ACTION
     setPagingParams = (pagingParams: PagingParams) => {
         this.pagingParams = pagingParams;
     }
@@ -60,6 +62,7 @@ export default class ActivityStore {
         }
     }
 
+    //COMPUTED 
     get axiosParams() {
         const params = new URLSearchParams();
         params.append('pageNumber', this.pagingParams.pageNumber.toString());
