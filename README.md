@@ -1,4 +1,4 @@
-##Active Planner
+## Active Planner
 Web application built with ASP.NET API.
 For Backend, using Entity Framework and Identity.
 For Frontend, using React with Typescript with Semantic-U-React.
