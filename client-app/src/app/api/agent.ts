@@ -53,14 +53,14 @@ axios.interceptors.response.use(async response => {
             }
             break;
         case 401:
-            toast.error('unauthorises')
+            toast.error('unauthorized')
             break;
         case 404:
-            // toast.error('not found')
+            toast.error('not found')
             history.push('not-found')
             break;
         case 500:
-            // toast.error('server error')
+            toast.error('server error')
             store.commonStore.setServerError(data);
             history.push('/server-error');
             break;
